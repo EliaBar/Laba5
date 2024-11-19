@@ -4,71 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Лабораторна робота 1</title>
-    
     <link rel="stylesheet" href="Grid/style.css">
 </head>
 <body>
    <div class="main_container">
-    <!-- Menu section-->
-     <div class="Menu">
-            <h1 class="logo1">Tudors</h1>
-            <div class="PagesName"> 
-                <p>Menu</p>
-            </div>
-            <div class="form-container" style="display:none;">
-                <input type="text" id="menuItem" placeholder="Enter item">
-                <button onclick="addItem('Menu')">Add to list</button>
-                <ul id="menuList"></ul>
-            </div>
-     </div>
+    <!-- Menu section -->
+    <div class="Menu" ondblclick="showForm('Menu')">
+        <h1 class="logo1">Tudors</h1>
+        <div class="PagesName">
+            <p>Menu</p>
+        </div>
+        <div class="form-container" style="display:none;">
+            <input type="text" id="menuItem" placeholder="Enter item">
+            <button onclick="addItem('Menu')">Add to list</button>
+            <ul id="menuList"></ul>
+        </div>
+    </div>
 
-     <!-- Achievements section-->
-    <div class="Achievements">
-         <ol class="ListOfAchievements">
+    <!-- Achievements section -->
+    <div class="Achievements" ondblclick="showForm('Achievements')">
+        <ol class="ListOfAchievements">
             <li>Зміцнив бюджет Англії</li>
             <li>Заснував суд над дворянами</li>
             <li>Підтримав експедицію, що відкрила острів Ньюфаундленд біля Америки</li>
-            <li> Надав наказ відомому історику - Полідору Вергілію писати записи історії Англії</li>
+            <li>Надав наказ відомому історику - Полідору Вергілію писати записи історії Англії</li>
         </ol>
-     </div>
-
-     <!-- Portrait section-->
-<div class="Portrait">
-    <img class="photo" src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Henry_Seven_England.jpg" alt="Henry_Seven" style="height: 100%" usemap="#henryMap" onmouseover="calculateTriangleArea()">
-    <map name="henryMap">
-        <area shape="rect" coords="0,0,935,1288" alt="Генріх VII" title="Генріх VII">
-    </map>
-
-    <!-- Form for inputting numbers separated by space -->
-    <div class="number-input-form" style="display: none;">
-        <label for="numbers">Введіть 10 чисел через пробіл:</label><br>
-        <input type="text" class="numbers" id="numbersInput" required>
-        <br>
-        <button type="button" onclick="findMin()">Знайти мінімум</button>
-    </div>
-    <p>Цей блок буде змінювати колір тексту.</p>
-    <input type="color" id="colorPicker" />
-</div>
-
-
-
-    <!-- Years_section-->
-    <div class="Years_section">
-      <b class="b">1485-1509</b>
+        <div class="form-container" style="display:none;">
+            <input type="text" id="achievementsItem" placeholder="Enter item">
+            <button onclick="addItem('Achievements')">Add to list</button>
+            <ul id="achievementsList"></ul>
+        </div>
     </div>
 
-    <!--Claim section-->
-    <div class="Claim_section">
+    <!-- Portrait section -->
+    <div class="Portrait" ondblclick="showForm('Portrait')">
+        <img class="photo" src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Henry_Seven_England.jpg" alt="Henry_Seven" style="height: 100%" usemap="#henryMap" onmouseover="calculateTriangleArea()">
+        <map name="henryMap">
+            <area shape="rect" coords="0,0,935,1288" alt="Генріх VII" title="Генріх VII">
+        </map>
+         <!-- Form for inputting numbers separated by space -->
+         <div class="number-input-form" style="display: none;">
+              <label for="numbers">Введіть 10 чисел через пробіл:</label>
+              <br>
+                   <input type="text" class="numbers" id="numbersInput" required>
+              <br>
+               <button type="button" onclick="findMin()">Знайти мінімум</button>
+         </div>
+         <p>Цей блок буде змінювати колір тексту.</p>
+         <input type="color" id="colorPicker" />
+        <div class="form-container" style="display:none;">
+            <input type="text" id="portraitItem" placeholder="Enter item">
+            <button onclick="addItem('Portrait')">Add to list</button>
+            <ul id="portraitList"></ul>
+        </div>
+    </div>
+
+    <!-- Years_section -->
+    <div class="Years_section" ondblclick="showForm('Years_section')">
+        <b class="b">1485-1509</b>
+        <div class="form-container" style="display:none;">
+            <input type="text" id="yearsItem" placeholder="Enter item">
+            <button onclick="addItem('Years_section')">Add to list</button>
+            <ul id="yearsList"></ul>
+        </div>
+    </div>
+
+    <!-- Claim section -->
+    <div class="Claim_section" ondblclick="showForm('Claim_section')">
         <b class="b">Henry VII</b>
+        <div class="form-container" style="display:none;">
+            <input type="text" id="claimItem" placeholder="Enter item">
+            <button onclick="addItem('Claim_section')">Add to list</button>
+            <ul id="claimList"></ul>
+        </div>
     </div>
 
-    <!-- Biography section-->
-    <div class="Biography_section">
-        <h2 class="logo2"> DYNASTY</h2>
+    <!-- Biography section -->
+    <div class="Biography_section" ondblclick="showForm('Biography_section')">
+        <h2 class="logo2">DYNASTY</h2>
         <p class="Biography">Провів юнацькі роки в Бретані, у 1485 висадився в Британії, щоб очолити повстання проти Річарда ІІІ, що завершилося поразкою Річарда і його смертю біля Босворта. Одружившись з Єлизаветою Йоркською у 1486, об'єднав двори Йорків і Ланкастерів. У 1497 відбулося повстання йоркців, але Генріх відновив порядок після воєн Червоної і Білої троянди і отримав незалежність від парламенту, заклав основи абсолютизму. Його наступником став син Генріх VIII.</p>
+        <div class="form-container" style="display:none;">
+            <input type="text" id="biographyItem" placeholder="Enter item">
+            <button onclick="addItem('Biography_section')">Add to list</button>
+            <ul id="biographyList"></ul>
+        </div>
     </div>
-    </div>
-    
-       <script src="index.js"></script>
+   </div>
+
+   <script src="index.js"></script>
 </body>
 </html>

@@ -9,8 +9,7 @@ function swapContent() {
     claimSection.innerHTML = yearsContent;
 }
 
-document.querySelector('.Years_section').addEventListener('click', swapContent);
-document.querySelector('.Claim_section').addEventListener('click', swapContent);
+document.addEventListener('DOMContentLoaded', swapContent);
 
 function calculateTriangleArea() {
     const base = 1;
@@ -40,9 +39,7 @@ function findMin() {
     
     const minNumber = Math.min(...numbers);
     alert(`Мінімальне число: ${minNumber}`);
-    
     document.cookie = `minValue=${minNumber}; path=/`;
-    
     document.querySelector('.number-input-form').style.display = 'none';
 }
 
@@ -67,9 +64,94 @@ window.onload = checkCookies;
 window.addEventListener('load', function() {
     const portrait = document.querySelector('.Portrait');
     const colorPicker = document.getElementById('colorPicker');
-
     const savedColor = localStorage.getItem('portraitTextColor');
     
+    if (savedColor) {
+        portrait.style.color = savedColor;
+        colorPicker.value = savedColor; 
+    }
+
+    colorPicker.addEventListener('input', function() {
+        const selectedColor = colorPicker.value;
+        portrait.style.color = selectedColor;
+        localStorage.setItem('portraitTextColor', selectedColor);
+    });
+});
+
+function showForm(sectionName) {
+    const section = document.querySelector(`.${sectionName}`);
+    const formContainer = section.querySelector('.form-container');
+    formContainer.style.display = formContainer.style.display === 'none' ? 'block' : 'none';
+}
+
+function addItem(sectionName) {
+    const section = document.querySelector(`.${sectionName}`);
+    const input = section.querySelector('input[type="text"]:not(.numbers)');
+    const data = input.value.trim();
+
+    if (!data) {
+        alert('Будь ласка, введіть дані через кому.');
+        return;
+    }
+
+    const items = data.split(',').map(item => item.trim()).filter(item => item);
+
+    if (items.length === 0) {
+        alert('Дані для списку не знайдено.');
+        return;
+    }
+
+    // Створення ненумерованого списку
+    const ul = document.createElement('ul');
+    items.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        ul.appendChild(li);
+    });
+
+    // Заміна вмісту секції на новий список
+    section.innerHTML = '';
+    section.appendChild(ul);
+
+    // Збереження списку в localStorage
+    const storageKey = `${sectionName}_list`;
+    localStorage.setItem(storageKey, JSON.stringify(items));
+}
+
+function restoreSections() {
+    const sections = ['Menu', 'Achievements', 'Portrait', 'Years_section', 'Claim_section', 'Biography_section'];
+
+    sections.forEach(sectionName => {
+        const storageKey = `${sectionName}_list`;
+        const savedData = localStorage.getItem(storageKey);
+
+        if (savedData) {
+            const section = document.querySelector(`.${sectionName}`);
+            const items = JSON.parse(savedData);
+
+            const ul = document.createElement('ul');
+            items.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                ul.appendChild(li);
+            });
+
+            // Оновлення секції
+            section.innerHTML = '';
+            section.appendChild(ul);
+
+            // Видалення даних зі сховища
+            localStorage.removeItem(storageKey);
+        }
+    });
+}
+
+
+window.addEventListener('load', function() {
+    const portrait = document.querySelector('.Portrait');
+    const colorPicker = document.getElementById('colorPicker');
+    const savedColor = localStorage.getItem('portraitTextColor');
+
     if (savedColor) {
         portrait.style.color = savedColor;
         colorPicker.value = savedColor;
@@ -80,5 +162,6 @@ window.addEventListener('load', function() {
         portrait.style.color = selectedColor;
         localStorage.setItem('portraitTextColor', selectedColor);
     });
-});
 
+    restoreSections(); // Відновлення списків при завантаженні сторінки
+});

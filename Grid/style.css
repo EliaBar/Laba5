@@ -41,6 +41,7 @@
 
 .Achievements{
     grid-area: Achievements;
+    width: 100%;
     background-color: lightgreen;
     display: grid;
     place-items: center;
