@@ -1,4 +1,7 @@
+let hasSwapped = false;
+
 function swapContent() {
+    if (hasSwapped) return; // Перевірка, чи вже виконувалася функція
     const yearsSection = document.querySelector('.Years_section');
     const claimSection = document.querySelector('.Claim_section');
 
@@ -7,9 +10,15 @@ function swapContent() {
 
     yearsSection.innerHTML = claimContent;
     claimSection.innerHTML = yearsContent;
+
+    hasSwapped = true; // Позначаємо, що контент був змінений
 }
 
-document.addEventListener('DOMContentLoaded', swapContent);
+// Викликаємо swapContent() тільки один раз при завантаженні сторінки
+document.addEventListener('DOMContentLoaded', function() {
+    swapContent(); // Це викликається при завантаженні сторінки
+});
+
 
 function calculateTriangleArea() {
     const base = 1;
@@ -109,11 +118,9 @@ function addItem(sectionName) {
         ul.appendChild(li);
     });
 
-    // Заміна вмісту секції на новий список
     section.innerHTML = '';
     section.appendChild(ul);
 
-    // Збереження списку в localStorage
     const storageKey = `${sectionName}_list`;
     localStorage.setItem(storageKey, JSON.stringify(items));
 }
@@ -136,32 +143,10 @@ function restoreSections() {
                 ul.appendChild(li);
             });
 
-            // Оновлення секції
             section.innerHTML = '';
             section.appendChild(ul);
 
-            // Видалення даних зі сховища
             localStorage.removeItem(storageKey);
         }
     });
 }
-
-
-window.addEventListener('load', function() {
-    const portrait = document.querySelector('.Portrait');
-    const colorPicker = document.getElementById('colorPicker');
-    const savedColor = localStorage.getItem('portraitTextColor');
-
-    if (savedColor) {
-        portrait.style.color = savedColor;
-        colorPicker.value = savedColor;
-    }
-
-    colorPicker.addEventListener('input', function() {
-        const selectedColor = colorPicker.value;
-        portrait.style.color = selectedColor;
-        localStorage.setItem('portraitTextColor', selectedColor);
-    });
-
-    restoreSections(); // Відновлення списків при завантаженні сторінки
-});
