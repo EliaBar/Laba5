@@ -1,7 +1,4 @@
-let hasSwapped = false;
-
 function swapContent() {
-    if (hasSwapped) return; // Перевірка, чи вже виконувалася функція
     const yearsSection = document.querySelector('.Years_section');
     const claimSection = document.querySelector('.Claim_section');
 
@@ -10,15 +7,9 @@ function swapContent() {
 
     yearsSection.innerHTML = claimContent;
     claimSection.innerHTML = yearsContent;
-
-    hasSwapped = true; // Позначаємо, що контент був змінений
 }
 
-// Викликаємо swapContent() тільки один раз при завантаженні сторінки
-document.addEventListener('DOMContentLoaded', function() {
-    swapContent(); // Це викликається при завантаженні сторінки
-});
-
+swapContent(); 
 
 function calculateTriangleArea() {
     const base = 1;
@@ -61,7 +52,7 @@ function checkCookies() {
         if (confirm(`Збережене мінімальне значення: ${minValue}. Після натискання "ОК", дані будуть видалені з cookies.`)) {
             document.cookie = 'minValue=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'; 
             alert('Cookies видалено.');
-            document.querySelector('.number-input-form').style.display = 'block'; // Показуємо форму
+            document.querySelector('.number-input-form').style.display = 'block'; 
         }
     } else {
         document.querySelector('.number-input-form').style.display = 'block';
@@ -102,15 +93,12 @@ function addItem(sectionName) {
         alert('Будь ласка, введіть дані через кому.');
         return;
     }
-
     const items = data.split(',').map(item => item.trim()).filter(item => item);
 
     if (items.length === 0) {
         alert('Дані для списку не знайдено.');
         return;
     }
-
-    // Створення ненумерованого списку
     const ul = document.createElement('ul');
     items.forEach(item => {
         const li = document.createElement('li');
